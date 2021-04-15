@@ -43,7 +43,7 @@ namespace DofusCharacterGenerator
                 PersonnageSelection(Characters);
             } else
             {
-                Console.WriteLine("Personnage non trouvé veuillez réssayer\n");
+                Console.WriteLine("Personnage introuvable, veuillez réessayer\n");
                 DeleteCharacter(Characters);
             }
         }
