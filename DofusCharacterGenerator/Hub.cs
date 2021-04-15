@@ -7,7 +7,6 @@ using System.Text;
 namespace DofusCharacterGenerator
 {    class Hub
     {
-
         private static void displayHelp()
         {
             Console.WriteLine("\nPour créer un nouveau personnage : ADD\n" +
@@ -54,14 +53,16 @@ namespace DofusCharacterGenerator
             var item = Characters.SingleOrDefault(character => character.Pseudonym == op);
             if (item == null)
             {
-                return "";
+                return null;
             }
             return op;
         }
 
-        private static void displayCharacterInfo(string op)
+        private static void displayCharacterInfo(List<Character> Characters, string op)
         {
-            throw new NotImplementedException();
+            var item = Characters.SingleOrDefault(character => character.Pseudonym == op);
+            Console.WriteLine("\nPseudonyme : {0}\nType: {1}\nSexe: {2}", item.Pseudonym, item.Type, item.Sexe);
+            PersonnageSelection(Characters);
         }
 
         public static void PersonnageSelection([Optional] List<Character> updatedList)
@@ -80,29 +81,27 @@ namespace DofusCharacterGenerator
                 }
             }
 
-            string op = Console.ReadLine();
+            string op = Console.ReadLine().ToLower();
             string test = SelectedCharacter(Characters, op);
 
-            switch (op.ToLower())
+            if (op == "add")
             {
-                case "add":
-                    Character newCharacter = NewCharacter();
-                    Characters.Add(newCharacter);
-                    PersonnageSelection(Characters);
-                    break;
-                case "help":
-                    displayHelp();
-                    PersonnageSelection(Characters);
-                    break;
-                case "supp":
-                    DeleteCharacter(Characters);
-                    break;
-                case test:
-                    displayCharacterInfo(op);
-                    break;
-                default :
-                    PersonnageSelection(Characters);
-                    break;
+                Character newCharacter = NewCharacter();
+                Characters.Add(newCharacter);
+                PersonnageSelection(Characters);
+            } else if (op == "help")
+            {
+                displayHelp();
+                PersonnageSelection(Characters);
+            } else if (op == "supp")
+            {
+                DeleteCharacter(Characters);
+            } else if (op == SelectedCharacter(Characters, op))
+            {
+                displayCharacterInfo(Characters, op);
+            } else
+            {
+                PersonnageSelection(Characters);
             }
         }
 
