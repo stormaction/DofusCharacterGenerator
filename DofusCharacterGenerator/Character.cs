@@ -13,19 +13,12 @@ namespace DofusCharacterGenerator
         private string[] sexes = { "femelle", "male" };
         public Character(string pseudonym, string type, string sexe)
         {
-            this.pseudonym = pseudonym;
-            this.type = type;
-            this.sexe = sexe;
-        }
-
-        public Character(string pseudonym)
-        {
-            Random randSexe = new Random(1);
-            Random randType = new Random(5);
+            Random randSexe = new Random();
+            Random randType = new Random();
 
             this.pseudonym = pseudonym;
-            this.type = allowedType[randType.Next()];
-            this.sexe = sexes[randSexe.Next()];
+            this.type = type == "" ? allowedType[randType.Next(5)] : type;
+            this.sexe = sexe == "" ? sexes[randSexe.Next(1)] : sexe;
         }
 
         public string Pseudonym
