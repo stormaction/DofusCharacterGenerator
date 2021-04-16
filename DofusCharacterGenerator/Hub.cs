@@ -15,6 +15,7 @@ namespace DofusCharacterGenerator
 
         }
 
+        // Character creation 
         private static Character NewCharacter()
         {
 
@@ -24,6 +25,7 @@ namespace DofusCharacterGenerator
             string sexe = Console.ReadLine();
             Console.WriteLine("\nChoisissez votre pseudonyme *OBLIGATOIRE");
             string pseudonyme = Console.ReadLine();
+            // If pseudonyme is empty relaunch process of creation
             if (pseudonyme == null)
             {
                 NewCharacter();
@@ -32,11 +34,14 @@ namespace DofusCharacterGenerator
             return newCharacter;
         }
 
+        // Delete character with pseudonyme
         private static void DeleteCharacter(List<Character> Characters)
         {
             Console.WriteLine("Rentrez le pseudonyme du joueur à supprimer");
             string op = Console.ReadLine();
             var item = Characters.SingleOrDefault(character => character.Pseudonym == op);
+
+            // IF a pseudonyme is found, it would be deleted, else relaunch process
             if (item != null) { 
                 Characters.Remove(item);
                 Console.WriteLine("Personne {0} à bien été supprimé\n", item.Pseudonym);
@@ -48,6 +53,8 @@ namespace DofusCharacterGenerator
             }
         }
 
+
+        // Searching if the character selected existe
         private static string SelectedCharacter(List<Character> Characters, string op)
         {
             var item = Characters.SingleOrDefault(character => character.Pseudonym == op);
@@ -58,6 +65,7 @@ namespace DofusCharacterGenerator
             return op;
         }
 
+        // If the searching function return a character display all is infos
         private static void displayCharacterInfo(List<Character> Characters, string op)
         {
             var item = Characters.SingleOrDefault(character => character.Pseudonym == op);
@@ -65,6 +73,7 @@ namespace DofusCharacterGenerator
             PersonnageSelection(Characters);
         }
 
+        // Main page where you see characters already created
         public static void PersonnageSelection([Optional] List<Character> updatedList)
         {
             List<Character> Characters = updatedList != null ? new List<Character>(updatedList) : new List<Character>();
@@ -84,6 +93,7 @@ namespace DofusCharacterGenerator
             string op = Console.ReadLine().ToLower();
             string test = SelectedCharacter(Characters, op);
 
+            // IF forest for commands because switch case allow only const value
             if (op == "add")
             {
                 Character newCharacter = NewCharacter();

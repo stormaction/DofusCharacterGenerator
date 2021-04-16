@@ -4,13 +4,19 @@ using System.Text;
 
 namespace DofusCharacterGenerator
 {
+    // Character class
     class Character
     {
+        // Character infomations
         private string pseudonym;
         private string type;
         private string sexe;
+
+        // Preset Types and sexes in case of empty answer
         private string[] allowedType = { "xelor", "iop", "cra", "enutrof", "feca", "sram" };
         private string[] sexes = { "femelle", "male" };
+
+        // Character creation with sexe and type randomization when answer is empty
         public Character(string pseudonym, string type, string sexe)
         {
             Random randSexe = new Random();
@@ -21,6 +27,7 @@ namespace DofusCharacterGenerator
             this.sexe = sexe == "" ? sexes[randSexe.Next(1)] : sexe;
         }
 
+        // Get and set function for each 
         public string Pseudonym
         {
             get { return pseudonym; }
